@@ -2,6 +2,7 @@ const express = require('express')
 const app = express();
 const {Server} = require('socket.io');
 const http = require('http');
+const ACTIONS = require('./actions');
 
 const server = http.createServer(app);
 const io = new Server(server);
@@ -23,6 +24,7 @@ function getAllConnectedClients(roomId) {
 
 io.on('connection', (socket) => {
     console.log('socket connected', socket.id);
+
 
     socket.on(ACTIONS.JOIN, ({ roomId, username }) => {
         userSocketMap[socket.id] = username;
